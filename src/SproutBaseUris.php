@@ -10,13 +10,14 @@ namespace barrelstrength\sproutbaseuris;
 use barrelstrength\sproutbase\base\BaseSproutTrait;
 use yii\base\Event;
 use \yii\base\Module;
+use barrelstrength\sproutbaseuris\services\App;
 use craft\web\View;
 use craft\events\RegisterTemplateRootsEvent;
 use craft\helpers\ArrayHelper;
 use craft\i18n\PhpMessageSource;
 use Craft;
 
-class SproutBaseLists extends Module
+class SproutBaseUris extends Module
 {
     use BaseSproutTrait;
 
@@ -24,6 +25,11 @@ class SproutBaseLists extends Module
      * @var string
      */
     public $handle;
+
+    /**
+     * @var App
+     */
+    public static $app;
 
     /**
      * Identify our plugin for BaseSproutTrait
@@ -80,6 +86,7 @@ class SproutBaseLists extends Module
 
     public function init()
     {
+        self::$app = new App();
         Craft::setAlias('@sproutbaseuris', $this->getBasePath());
 
         // Setup Controllers

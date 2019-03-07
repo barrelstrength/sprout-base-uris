@@ -10,9 +10,11 @@ namespace barrelstrength\sproutbaseuris\services;
 use barrelstrength\sproutbaseuris\base\UrlEnabledSectionType;
 use barrelstrength\sproutbaseuris\events\RegisterUrlEnabledSectionTypesEvent;
 use barrelstrength\sproutbaseuris\sectiontypes\Category;
+use barrelstrength\sproutbaseuris\models\UrlEnabledSection;
 use barrelstrength\sproutbaseuris\sectiontypes\Entry;
 use barrelstrength\sproutbaseuris\sectiontypes\NoSection;
 use barrelstrength\sproutbaseuris\sectiontypes\Product;
+
 use Craft;
 use yii\base\Component;
 
@@ -56,6 +58,9 @@ class UrlEnabledSections extends Component
         return $event->urlEnabledSectionTypes;
     }
 
+    /**
+     * @return array
+     */
     public function getUrlEnabledSectionTypes()
     {
         $urlEnabledSectionTypes = $this->getRegisteredUrlEnabledSectionsEvent();
@@ -69,6 +74,9 @@ class UrlEnabledSections extends Component
         return $urlEnabledSections;
     }
 
+    /**
+     * @return array
+     */
     public function getMatchedElementVariables()
     {
         $urlEnabledSections = $this->getUrlEnabledSectionTypes();
@@ -80,5 +88,25 @@ class UrlEnabledSections extends Component
         }
 
         return array_filter($matchedElementVariables);
+    }
+
+    /**
+     * Get the active URL-Enabled Section Type via the Element Type
+     *
+     * @param $elementType
+     *
+     * @return UrlEnabledSectionType|null
+     */
+    public function getUrlEnabledSectionTypeByElementType($elementType)
+    {
+        $urlEnabledSectionTypes = $this->getUrlEnabledSectionTypes();
+
+        foreach ($urlEnabledSectionTypes as $urlEnabledSectionType) {
+            if ($urlEnabledSectionType->getElementType() == $elementType) {
+                return $urlEnabledSectionType;
+            }
+        }
+
+        return null;
     }
 }
