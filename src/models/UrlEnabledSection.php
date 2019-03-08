@@ -11,7 +11,6 @@ use barrelstrength\sproutbaseuris\base\UrlEnabledSectionType;
 use craft\base\Element;
 use craft\base\Model;
 use craft\db\Query;
-use barrelstrength\sproutbaseuris\fields\ElementMetadata;
 use Craft;
 
 /**
@@ -34,7 +33,7 @@ class UrlEnabledSection extends Model
     public $type;
 
     /**
-     * @var SitemapSection $sitemapSection
+     * @var $sitemapSection
      */
     public $sitemapSection;
 
@@ -125,7 +124,7 @@ class UrlEnabledSection extends Model
 
             /** @noinspection ForeachSourceInspection */
             foreach ($fields as $field) {
-                if (get_class($field) == ElementMetadata::class) {
+                if (get_class($field) == 'barrelstrength\sproutseo\fields\ElementMetadata') {
                     $totalElementMetaFields++;
                 }
             }
