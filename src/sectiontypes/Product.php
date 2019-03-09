@@ -158,7 +158,7 @@ class Product extends UrlEnabledSectionType
         }
 
         Craft::$app->getQueue()->push(new ResaveElements([
-            'description' => Craft::t('sprout-sitemaps', 'Re-saving Products and metadata'),
+            'description' => Craft::t('sprout-base-uris', 'Re-saving Products and metadata'),
             'elementType' => ProductElement::class,
             'criteria' => [
                 'siteId' => $primarySite,

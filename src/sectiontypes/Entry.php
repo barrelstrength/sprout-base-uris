@@ -149,7 +149,7 @@ class Entry extends UrlEnabledSectionType
         }
 
         Craft::$app->getQueue()->push(new ResaveElements([
-            'description' => Craft::t('sprout-sitemaps', 'Re-saving Entries and metadata'),
+            'description' => Craft::t('sprout-base-uris', 'Re-saving Entries and metadata'),
             'elementType' => EntryElement::class,
             'criteria' => [
                 'siteId' => $primarySite,

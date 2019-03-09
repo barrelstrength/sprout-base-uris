@@ -140,7 +140,7 @@ class Category extends UrlEnabledSectionType
         }
 
         Craft::$app->getQueue()->push(new ResaveElements([
-            'description' => Craft::t('sprout-sitemaps', 'Re-saving Categories and metadata.'),
+            'description' => Craft::t('sprout-base-uris', 'Re-saving Categories and metadata.'),
             'elementType' => CategoryElement::class,
             'criteria' => [
                 'siteId' => $primarySite,

@@ -94,19 +94,51 @@ class UrlEnabledSections extends Component
      * Get the active URL-Enabled Section Type via the Element Type
      *
      * @param $elementType
-     *
-     * @return UrlEnabledSectionType|null
+     * @return mixed|null
+     * @throws \craft\errors\SiteNotFoundException
      */
     public function getUrlEnabledSectionTypeByElementType($elementType)
     {
-        $urlEnabledSectionTypes = $this->getUrlEnabledSectionTypes();
+        $currentSite = Craft::$app->sites->getCurrentSite();
+        $this->prepareUrlEnabledSectionTypesForMetadataField($currentSite->id);
 
-        foreach ($urlEnabledSectionTypes as $urlEnabledSectionType) {
+        foreach ($this->urlEnabledSectionTypes  as $urlEnabledSectionType) {
+
             if ($urlEnabledSectionType->getElementType() == $elementType) {
                 return $urlEnabledSectionType;
             }
         }
 
         return null;
+    }
+
+    /**
+     * @param $siteId
+     */
+    public function prepareUrlEnabledSectionTypesForMetadataField($siteId)
+    {
+        $registeredUrlEnabledSectionsTypes = $this->getRegisteredUrlEnabledSectionsEvent();
+
+        foreach ($registeredUrlEnabledSectionsTypes as $urlEnabledSectionType) {
+            /**
+             * @var UrlEnabledSectionType $urlEnabledSectionType
+             */
+            $urlEnabledSectionType = new $urlEnabledSectionType();
+            $allUrlEnabledSections = $urlEnabledSectionType->getAllUrlEnabledSections($siteId);
+            $urlEnabledSections = [];
+            /**
+             * @var UrlEnabledSection $urlEnabledSection
+             */
+            foreach ($allUrlEnabledSections as $urlEnabledSection) {
+                $uniqueKey = $urlEnabledSectionType->getId().'-'.$urlEnabledSection->id;
+                $model = new UrlEnabledSection();
+
+                $model->type = $urlEnabledSectionType;
+                $model->id = $urlEnabledSection->id;
+                $urlEnabledSections[$uniqueKey] = $model;
+            }
+            $urlEnabledSectionType->urlEnabledSections = $urlEnabledSections;
+            $this->urlEnabledSectionTypes[$urlEnabledSectionType->getId()] = $urlEnabledSectionType;
+        }
     }
 }
