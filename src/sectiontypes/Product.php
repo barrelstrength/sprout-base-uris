@@ -145,6 +145,11 @@ class Product extends UrlEnabledSectionType
 
         $productTypes = new ProductTypes();
         $productType = $productTypes->getProductTypeById($elementGroupId);
+
+        if (!$productType) {
+            return false;
+        }
+
         $siteSettings = array_values($productType->getSiteSettings());
 
         if (!$siteSettings) {

@@ -53,11 +53,15 @@ class Entry extends UrlEnabledSectionType
     /**
      * @param $id
      *
-     * @return array
+     * @return array|\craft\base\Model|\craft\models\EntryType[]|null
      */
     public function getFieldLayoutSettingsObject($id)
     {
         $section = $this->getById($id);
+
+        if (!$section) {
+            return null;
+        }
 
         return $section->getEntryTypes();
     }
@@ -136,11 +140,17 @@ class Entry extends UrlEnabledSectionType
         }
 
         $section = Craft::$app->sections->getSectionById($elementGroupId);
+
+        if (!$section) {
+            return false;
+        }
+
         $siteSettings = $section->getSiteSettings();
 
         if (!$siteSettings) {
             return false;
         }
+
         // let's take the first site
         $primarySite = reset($siteSettings)->siteId ?? null;
 

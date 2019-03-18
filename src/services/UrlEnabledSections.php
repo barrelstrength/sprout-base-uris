@@ -28,7 +28,7 @@ class UrlEnabledSections extends Component
     const EVENT_REGISTER_URL_ENABLED_SECTION_TYPES = 'registerUrlEnabledSectionTypesEvent';
 
     /**
-     * @var
+     * @var UrlEnabledSectionType[]
      */
     public $urlEnabledSectionTypes;
 
@@ -37,7 +37,7 @@ class UrlEnabledSections extends Component
      *
      * @return UrlEnabledSectionType[]
      */
-    public function getRegisteredUrlEnabledSectionsEvent()
+    public function getRegisteredUrlEnabledSectionsEvent(): array
     {
         $urlEnabledSectionTypes = [
             Entry::class,
@@ -61,7 +61,7 @@ class UrlEnabledSections extends Component
     /**
      * @return array
      */
-    public function getUrlEnabledSectionTypes()
+    public function getUrlEnabledSectionTypes(): array
     {
         $urlEnabledSectionTypes = $this->getRegisteredUrlEnabledSectionsEvent();
 
@@ -77,7 +77,7 @@ class UrlEnabledSections extends Component
     /**
      * @return array
      */
-    public function getMatchedElementVariables()
+    public function getMatchedElementVariables(): array
     {
         $urlEnabledSections = $this->getUrlEnabledSectionTypes();
 

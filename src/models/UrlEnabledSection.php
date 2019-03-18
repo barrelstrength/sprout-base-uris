@@ -100,7 +100,7 @@ class UrlEnabledSection extends Model
      *
      * @return bool
      */
-    public function hasElementMetadataField($matchAll = true)
+    public function hasElementMetadataField($matchAll = true): bool
     {
         $fieldLayoutObjects = $this->type->getFieldLayoutSettingsObject($this->id);
 
@@ -137,13 +137,11 @@ class UrlEnabledSection extends Model
             if ($totalElementMetaFields >= $totalFieldLayouts) {
                 return true;
             }
-        } else {
+        } else if ($totalElementMetaFields > 0) {
             // When we're resaving our elements, we don't care if everything is
             // setup, we just need to know if any Element Metadata Fields exist
             // and need updating.
-            if ($totalElementMetaFields > 0) {
-                return true;
-            }
+            return true;
         }
 
         return false;

@@ -9,7 +9,6 @@ namespace barrelstrength\sproutbaseuris\base;
 
 use barrelstrength\sproutbaseuris\models\UrlEnabledSection;
 use craft\base\Element;
-use craft\base\Model;
 
 /**
  * Class UrlEnabledSectionType
@@ -79,8 +78,6 @@ abstract class UrlEnabledSectionType
      * through whatever we get back and call getFieldLayouts() on each item in the array.
      *
      * @param $id
-     *
-     * @return Model
      */
     abstract public function getFieldLayoutSettingsObject($id);
 

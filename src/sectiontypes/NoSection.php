@@ -57,7 +57,7 @@ class NoSection extends UrlEnabledSectionType
      */
     public function getFieldLayoutSettingsObject($id)
     {
-        return [];
+        return null;
     }
 
     /**

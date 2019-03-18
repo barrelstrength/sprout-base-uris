@@ -126,6 +126,11 @@ class Category extends UrlEnabledSectionType
         }
 
         $category = Craft::$app->categories->getGroupById($elementGroupId);
+
+        if (!$category) {
+            return false;
+        }
+
         $siteSettings = $category->getSiteSettings();
 
         if (!$siteSettings) {
