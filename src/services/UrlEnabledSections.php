@@ -20,7 +20,7 @@ use yii\base\Component;
 
 /**
  *
- * @property mixed                                                  $matchedElementVariables
+ * @property mixed                                                       $matchedElementVariables
  * @property \barrelstrength\sproutbaseuris\base\UrlEnabledSectionType[] $registeredUrlEnabledSectionsEvent
  */
 class UrlEnabledSections extends Component
@@ -45,9 +45,9 @@ class UrlEnabledSections extends Component
             NoSection::class
         ];
 
-         if (Craft::$app->getPlugins()->getPlugin('commerce')) {
-             $urlEnabledSectionTypes[] = Product::class;
-         }
+        if (Craft::$app->getPlugins()->getPlugin('commerce')) {
+            $urlEnabledSectionTypes[] = Product::class;
+        }
 
         $event = new RegisterUrlEnabledSectionTypesEvent([
             'urlEnabledSectionTypes' => $urlEnabledSectionTypes
@@ -94,6 +94,7 @@ class UrlEnabledSections extends Component
      * Get the active URL-Enabled Section Type via the Element Type
      *
      * @param $elementType
+     *
      * @return mixed|null
      * @throws \craft\errors\SiteNotFoundException
      */
@@ -102,7 +103,7 @@ class UrlEnabledSections extends Component
         $currentSite = Craft::$app->sites->getCurrentSite();
         $this->prepareUrlEnabledSectionTypesForMetadataField($currentSite->id);
 
-        foreach ($this->urlEnabledSectionTypes  as $urlEnabledSectionType) {
+        foreach ($this->urlEnabledSectionTypes as $urlEnabledSectionType) {
 
             if ($urlEnabledSectionType->getElementType() == $elementType) {
                 return $urlEnabledSectionType;
