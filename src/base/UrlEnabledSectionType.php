@@ -119,9 +119,9 @@ abstract class UrlEnabledSectionType
     /**
      * Return the name of the Element Type managed by this URL-Enabled Section Type
      *
-     * @return string
+     * @return string|null
      */
-    abstract public function getElementType(): string;
+    abstract public function getElementType();
 
     /**
      * Return the name of the table that element-specific data is stored

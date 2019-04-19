@@ -77,7 +77,7 @@ class Entry extends UrlEnabledSectionType
     /**
      * @return string
      */
-    public function getElementType(): string
+    public function getElementType()
     {
         return EntryElement::class;
     }
