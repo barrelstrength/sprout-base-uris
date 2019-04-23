@@ -102,16 +102,7 @@ class UrlEnabledSection extends Model
      */
     public function hasElementMetadataField($matchAll = true): bool
     {
-        $fieldLayoutObjects = $this->type->getFieldLayoutSettingsObject($this->id);
-
-        if (!$fieldLayoutObjects) {
-            return false;
-        }
-
-        // Make what we get back into an array
-        if (!is_array($fieldLayoutObjects)) {
-            $fieldLayoutObjects = [$fieldLayoutObjects];
-        }
+        $fieldLayoutObjects = $this->getFieldLayoutObjects();
 
         $totalFieldLayouts = count($fieldLayoutObjects);
         $totalElementMetaFields = 0;
@@ -145,5 +136,43 @@ class UrlEnabledSection extends Model
         }
 
         return false;
+    }
+
+    /**
+     * @param $fieldLayoutId
+     * @return bool
+     */
+    public function hasFieldLayoutId($fieldLayoutId)
+    {
+        $fieldLayoutObjects = $this->getFieldLayoutObjects();
+
+        foreach ($fieldLayoutObjects as $fieldLayoutObject) {
+            $fieldLayout = $fieldLayoutObject->getFieldLayout();
+
+            if ($fieldLayout->id == $fieldLayoutId){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return array|bool
+     */
+    private function getFieldLayoutObjects()
+    {
+        $fieldLayoutObjects = $this->type->getFieldLayoutSettingsObject($this->id);
+
+        if (!$fieldLayoutObjects) {
+            return false;
+        }
+
+        // Make what we get back into an array
+        if (!is_array($fieldLayoutObjects)) {
+            $fieldLayoutObjects = [$fieldLayoutObjects];
+        }
+
+        return $fieldLayoutObjects;
     }
 }
