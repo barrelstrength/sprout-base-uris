@@ -71,7 +71,7 @@ class NoSection extends UrlEnabledSectionType
     /**
      * @inheritdoc
      */
-    public function getElementType(): string
+    public function getElementType()
     {
         return null;
     }

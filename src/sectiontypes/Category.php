@@ -71,7 +71,7 @@ class Category extends UrlEnabledSectionType
     /**
      * @return string
      */
-    public function getElementType(): string
+    public function getElementType()
     {
         return CategoryElement::class;
     }
