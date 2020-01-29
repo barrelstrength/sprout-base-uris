@@ -9,6 +9,7 @@ namespace barrelstrength\sproutbaseuris;
 
 use barrelstrength\sproutbase\base\BaseSproutTrait;
 use yii\base\Event;
+use yii\base\InvalidConfigException;
 use \yii\base\Module;
 use barrelstrength\sproutbaseuris\services\App;
 use craft\web\View;
@@ -84,9 +85,19 @@ class SproutBaseUris extends Module
         parent::__construct($id, $parent, $config);
     }
 
+    /**
+     * @throws InvalidConfigException
+     */
     public function init()
     {
-        self::$app = new App();
+        parent::init();
+
+        $this->setComponents([
+            'app' => App::class
+        ]);
+
+        self::$app = $this->get('app');
+
         Craft::setAlias('@sproutbaseuris', $this->getBasePath());
 
         // Setup Controllers
@@ -100,7 +111,5 @@ class SproutBaseUris extends Module
         Event::on(View::class, View::EVENT_REGISTER_CP_TEMPLATE_ROOTS, function(RegisterTemplateRootsEvent $e) {
             $e->roots['sprout-base-uris'] = $this->getBasePath().DIRECTORY_SEPARATOR.'templates';
         });
-
-        parent::init();
     }
 }
