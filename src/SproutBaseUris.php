@@ -7,7 +7,6 @@
 
 namespace barrelstrength\sproutbaseuris;
 
-use barrelstrength\sproutbase\base\BaseSproutTrait;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
 use \yii\base\Module;
@@ -20,8 +19,6 @@ use Craft;
 
 class SproutBaseUris extends Module
 {
-    use BaseSproutTrait;
-
     /**
      * @var string
      */
@@ -31,13 +28,6 @@ class SproutBaseUris extends Module
      * @var App
      */
     public static $app;
-
-    /**
-     * Identify our plugin for BaseSproutTrait
-     *
-     * @var string
-     */
-    public static $pluginHandle = 'sprout-base-uris';
 
     /**
      * @var string|null The translation category that this module translation messages should use. Defaults to the lowercase plugin handle.
