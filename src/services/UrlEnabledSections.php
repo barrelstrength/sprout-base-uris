@@ -9,19 +9,18 @@ namespace barrelstrength\sproutbaseuris\services;
 
 use barrelstrength\sproutbaseuris\base\UrlEnabledSectionType;
 use barrelstrength\sproutbaseuris\events\RegisterUrlEnabledSectionTypesEvent;
-use barrelstrength\sproutbaseuris\sectiontypes\Category;
 use barrelstrength\sproutbaseuris\models\UrlEnabledSection;
+use barrelstrength\sproutbaseuris\sectiontypes\Category;
 use barrelstrength\sproutbaseuris\sectiontypes\Entry;
 use barrelstrength\sproutbaseuris\sectiontypes\NoSection;
 use barrelstrength\sproutbaseuris\sectiontypes\Product;
-
 use Craft;
 use yii\base\Component;
 
 /**
  *
- * @property mixed                                                       $matchedElementVariables
- * @property \barrelstrength\sproutbaseuris\base\UrlEnabledSectionType[] $registeredUrlEnabledSectionsEvent
+ * @property mixed                   $matchedElementVariables
+ * @property UrlEnabledSectionType[] $registeredUrlEnabledSectionsEvent
  */
 class UrlEnabledSections extends Component
 {
@@ -42,7 +41,7 @@ class UrlEnabledSections extends Component
         $urlEnabledSectionTypes = [
             Entry::class,
             Category::class,
-            NoSection::class
+            NoSection::class,
         ];
 
         if (Craft::$app->getPlugins()->getPlugin('commerce')) {
@@ -71,6 +70,14 @@ class UrlEnabledSections extends Component
             $urlEnabledSections[] = new $urlEnabledSectionType();
         }
 
+        uasort($urlEnabledSections, static function($a, $b) {
+            /**
+             * @var $a UrlEnabledSectionType
+             * @var $b UrlEnabledSectionType
+             */
+            return $a->getName() <=> $b->getName();
+        });
+
         return $urlEnabledSections;
     }
 
@@ -95,7 +102,7 @@ class UrlEnabledSections extends Component
      *
      * @param $elementType
      *
-     * @return mixed|null
+     * @return UrlEnabledSectionType|null
      * @throws \craft\errors\SiteNotFoundException
      */
     public function getUrlEnabledSectionTypeByElementType($elementType)
