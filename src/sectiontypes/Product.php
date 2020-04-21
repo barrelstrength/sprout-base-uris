@@ -24,7 +24,7 @@ class Product extends UrlEnabledSectionType
      */
     public function getName(): string
     {
-        return 'Products';
+        return 'Product';
     }
 
     /**

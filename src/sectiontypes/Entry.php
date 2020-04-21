@@ -21,7 +21,7 @@ class Entry extends UrlEnabledSectionType
      */
     public function getName(): string
     {
-        return 'Sections';
+        return 'Entry';
     }
 
     /**

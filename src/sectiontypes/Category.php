@@ -21,7 +21,7 @@ class Category extends UrlEnabledSectionType
      */
     public function getName(): string
     {
-        return 'Categories';
+        return 'Category';
     }
 
     /**
