@@ -104,6 +104,10 @@ class UrlEnabledSection extends Model
     {
         $fieldLayoutObjects = $this->getFieldLayoutObjects();
 
+        if ($fieldLayoutObjects === false) {
+            return false;
+        }
+
         $totalFieldLayouts = count($fieldLayoutObjects);
         $totalElementMetaFields = 0;
 
@@ -145,6 +149,10 @@ class UrlEnabledSection extends Model
     public function hasFieldLayoutId($fieldLayoutId)
     {
         $fieldLayoutObjects = $this->getFieldLayoutObjects();
+
+        if ($fieldLayoutObjects === false) {
+            return false;
+        }
 
         foreach ($fieldLayoutObjects as $fieldLayoutObject) {
             $fieldLayout = $fieldLayoutObject->getFieldLayout();
